@@ -1,11 +1,11 @@
 # Refurbish
 
-A Hot Module Replacement (HMR) plugin for [rEFui](https://github.com/SudoMaker/refui) components in Rollup and Vite projects.
+A Hot Module Replacement (HMR) plugin for [rEFui](https://github.com/SudoMaker/refui) components in Rollup, Vite, Webpack, and Rspack projects.
 
 ## Features
 
 - 🔥 Hot Module Replacement for rEFui components
-- 🚀 Works with both Rollup and Vite
+- 🚀 Works with Rollup, Vite, Webpack, and Rspack
 - 📦 Zero configuration for most use cases
 - 🎯 Supports JSX, TSX, and MDX files by default
 - ⚡ Development-only injection (automatically skipped in production builds)
@@ -33,7 +33,7 @@ npm install refui
 ```js
 // vite.config.js
 import { defineConfig } from 'vite';
-import { refurbish } from 'refurbish';
+import { refurbish } from 'refurbish/vite';
 
 export default defineConfig({
   plugins: [
@@ -47,7 +47,7 @@ export default defineConfig({
 
 ```js
 // rollup.config.js
-import { refurbish } from 'refurbish';
+import { refurbish } from 'refurbish/rollup';
 
 export default {
   plugins: [
@@ -57,12 +57,61 @@ export default {
 };
 ```
 
+### Webpack
+
+```js
+// webpack.config.js
+import Refurbish from 'refurbish/webpack';
+
+export default {
+  // ...
+  plugins: [
+    new Refurbish(),
+    // ... other plugins
+  ],
+};
+```
+
+### Rspack
+
+As Rspack is designed to be a drop-in replacement for Webpack, you can use `refurbish/webpack` directly in your Rspack configuration.
+
+```js
+// rspack.config.js
+import Refurbish from 'refurbish/webpack';
+
+export default {
+  // ...
+  plugins: [
+    new Refurbish(),
+    // ... other plugins
+  ],
+};
+```
+
 ## Options
 
-The plugin accepts an options object with the following properties:
+The plugin accepts an options object. The options are the same for Vite, Rollup, Webpack, and Rspack.
+
+**Vite / Rollup:**
 
 ```js
 refurbish({
+  // File patterns to include (default: ['**/*.jsx', '**/*.tsx', '**/*.mdx'])
+  include: ['**/*.jsx', '**/*.tsx'],
+  
+  // File patterns to exclude
+  exclude: ['**/node_modules/**'],
+  
+  // Import source for HMR setup function (default: 'refui/hmr')
+  importSource: 'refui/hmr'
+})
+```
+
+**Webpack:**
+
+```js
+new Refurbish({
   // File patterns to include (default: ['**/*.jsx', '**/*.tsx', '**/*.mdx'])
   include: ['**/*.jsx', '**/*.tsx'],
   

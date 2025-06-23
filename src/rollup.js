@@ -1,7 +1,7 @@
 import { createFilter } from '@rollup/pluginutils';
 
-const BEGIN = '// ---- BEGIN REFUI HMR INJECT ----';
-const END   = '// ----  END REFUI HMR INJECT  ----';
+const BEGIN = '/* ---- BEGIN REFUI HMR INJECT ---- */';
+const END   = '/* ----  END REFUI HMR INJECT  ---- */';
 
 /**
  * @param {object} [options]
@@ -26,25 +26,29 @@ export function refurbish(options = {}) {
 	const snippet =
 `${BEGIN}
 if (import.meta.hot) {
-	import('${importSource}').then(({ setup }) =>
-		setup({
-			url: import.meta.url,
-			accept: (cb) => import.meta.hot.accept(cb),
-			invalidate: (reason) => {
-				if (import.meta.hot.invalidate) {
-					import.meta.hot.invalidate(reason);
-				} else {
-					location.reload();
-				}
+	import("${importSource}").then(({setup}) => setup({
+		data: import.meta.hot.data,
+		current: import(/* @vite-ignore */import.meta.url),
+		accept() {
+			import.meta.hot.accept()
+		},
+		dispose(cb) {
+			import.meta.hot.dispose(cb)
+		},
+		invalidate(reason) {
+			if (import.meta.hot.invalidate) {
+				import.meta.hot.invalidate(reason)
+			} else {
+				location.reload()
 			}
-		})
-	);
+		}
+	}))
 }
 ${END}
 `;
 
 	return {
-		name: 'refui-hmr-inject',
+		name: 'refurbish',
 		apply,
 
 		// Rollup-only: record whether we are running a production build
@@ -63,7 +67,7 @@ ${END}
 			if (code.includes(BEGIN)) return null; // already injected
 
 			return {
-				code: `${code}\n${snippet}`,
+				code: `${code}\n\n${snippet}`,
 				map: null
 			};
 		}

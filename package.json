@@ -13,6 +13,14 @@
     "rollup",
     "vite"
   ],
+  "exports": {
+    ".": "./src/rollup.js",
+    "./vite": "./src/rollup.js",
+    "./rollup": "./src/rollup.js",
+    "./webpack": "./src/webpack-plugin.js",
+    "./hmr-loader": "./src/webpack-loader.js",
+    "./package.json": "./package.json"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SudoMaker/refurbish.git"
