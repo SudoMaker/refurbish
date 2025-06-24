@@ -1,4 +1,3 @@
-import { fileURLToPath } from 'node:url';
 import { createFilter } from '@rollup/pluginutils';
 import { createRequire } from 'node:module';
 import path from 'node:path';
@@ -48,15 +47,11 @@ export default class Refurbish {
 			return filter(filepath);
 		};
 
-		const loaderPath = fileURLToPath(
-			new URL('./webpack-loader.js', import.meta.url)
-		);
-
 		const rule = {
 			test,
 			use: [
 				{
-					loader: loaderPath,
+					loader: 'refurbish/hmr-loader',
 					options: this.loaderOpts,
 				},
 			],
