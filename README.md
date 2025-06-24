@@ -99,27 +99,35 @@ The plugin accepts an options object. The options are the same for Vite, Rollup,
 refurbish({
   // File patterns to include (default: ['**/*.jsx', '**/*.tsx', '**/*.mdx'])
   include: ['**/*.jsx', '**/*.tsx'],
-  
+
   // File patterns to exclude
   exclude: ['**/node_modules/**'],
-  
+
   // Import source for HMR setup function (default: 'refui/hmr')
-  importSource: 'refui/hmr'
+  importSource: 'refui/hmr',
+
+  // Explicitly enable/disable the plugin.
+  // Default: enabled in development, disabled in production.
+  enabled: true
 })
 ```
 
-**Webpack:**
+**Webpack / Rspack:**
 
 ```js
 new Refurbish({
   // File patterns to include (default: ['**/*.jsx', '**/*.tsx', '**/*.mdx'])
   include: ['**/*.jsx', '**/*.tsx'],
-  
+
   // File patterns to exclude
   exclude: ['**/node_modules/**'],
-  
+
   // Import source for HMR setup function (default: 'refui/hmr')
-  importSource: 'refui/hmr'
+  importSource: 'refui/hmr',
+
+  // Explicitly enable/disable the plugin.
+  // Default: enabled in development, disabled in production.
+  enabled: true
 })
 ```
 
@@ -128,6 +136,7 @@ new Refurbish({
 - **`include`** (`string | string[]`): Glob patterns for files to process. Defaults to JSX, TSX, and MDX files.
 - **`exclude`** (`string | string[]`): Glob patterns for files to exclude from processing.
 - **`importSource`** (`string`): The module path to import the HMR setup function from. Defaults to `'refui/hmr'`.
+- **`enabled`** (`boolean`): Explicitly enable or disable the plugin. If not set, the plugin is active only in development environments and is disabled for production builds.
 
 ## License
 

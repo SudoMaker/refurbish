@@ -8,16 +8,21 @@ const END   = '/* ----  END REFUI HMR INJECT  ---- */';
  * @param {string|string[]} [options.include]  - picomatch/glob(s) to include (default: jsx,tsx,mdx)
  * @param {string|string[]} [options.exclude]  - patterns to exclude
  * @param {string}          [options.importSource='refui/hmr'] - where to import {setup} from
+ * @param {boolean}         [options.enabled]     override production check; default `compiler.options.mode !== 'production'`
  * @returns {import('rollup').Plugin}
  */
 export function refurbish(options = {}) {
 	const {
 		include = ['**/*.jsx', '**/*.tsx', '**/*.mdx'],
 		exclude,
-		importSource = 'refui/hmr'
+		importSource = 'refui/hmr',
+		enabled
 	} = options;
 
 	const filter = createFilter(include, exclude);
+
+	enabled = enabled ?? process.env.NODE_ENV !== 'production';
+	if (!enabled) return;
 
 	// pre–serve only for Vite; for plain Rollup we check `command`
 	const apply = 'serve';       // Vite hint
@@ -29,12 +34,8 @@ if (import.meta.hot) {
 	import("${importSource}").then(({setup}) => setup({
 		data: import.meta.hot.data,
 		current: import(/* @vite-ignore */import.meta.url),
-		accept() {
-			import.meta.hot.accept()
-		},
-		dispose(cb) {
-			import.meta.hot.dispose(cb)
-		},
+		accept() { import.meta.hot.accept() },
+		dispose(cb) {	import.meta.hot.dispose(cb)	},
 		invalidate(reason) {
 			if (import.meta.hot.invalidate) {
 				import.meta.hot.invalidate(reason)

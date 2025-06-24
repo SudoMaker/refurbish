@@ -1,23 +1,22 @@
-import { createFilter } from '@rollup/pluginutils';
-
 const BEGIN = '/* ---- BEGIN REFUI HMR INJECT ---- */';
 const END   = '/* ----  END REFUI HMR INJECT  ---- */';
 
 export default function refuiHmrLoader(source) {
-	const { importSource = 'refui/hmr', include, exclude } = this.getOptions?.() || {};
-	const filter = createFilter(
-		include ?? ['**/*.jsx', '**/*.tsx', '**/*.mdx'],
-		exclude
-	);
+	if (source.includes(BEGIN)) return source;
+
+	const { importSource = 'refui/hmr', importSourcePath } =
+		this.getOptions?.() || {};
 
 	let code = source.replace(
 		/import\.meta\.\s*\/\*\s*@refui\s+webpack\s*\*\/\s*hot/g,
 		'import.meta.webpackHot'
 	);
 
-	const isProdBuild = this.mode === 'production';
-	if (!isProdBuild && filter(this.resourcePath) && !code.includes(BEGIN)) {
-		const snippet = `${BEGIN}
+	if (this.resourcePath === importSourcePath) {
+		return code;
+	}
+
+	const snippet = `${BEGIN}
 if (import.meta.webpackHot) {
 	import("${importSource}").then(m => m.setup({
 		data: import.meta.webpackHot.data,
@@ -29,8 +28,7 @@ if (import.meta.webpackHot) {
 }
 ${END}
 `;
-		code += `\n\n${snippet}`;
-	}
+	code += `\n\n${snippet}`;
 
 	return code;
 }
