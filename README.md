@@ -36,10 +36,10 @@ import { defineConfig } from 'vite';
 import { refurbish } from 'refurbish/vite';
 
 export default defineConfig({
-  plugins: [
-    refurbish(),
-    // ... other plugins
-  ],
+	plugins: [
+		refurbish(),
+		// ... other plugins
+	],
 });
 ```
 
@@ -50,10 +50,10 @@ export default defineConfig({
 import { refurbish } from 'refurbish/rollup';
 
 export default {
-  plugins: [
-    refurbish(),
-    // ... other plugins
-  ],
+	plugins: [
+		refurbish(),
+		// ... other plugins
+	],
 };
 ```
 
@@ -61,14 +61,14 @@ export default {
 
 ```js
 // webpack.config.js
-import Refurbish from 'refurbish/webpack';
+import { Refurbish } from 'refurbish/webpack';
 
 export default {
-  // ...
-  plugins: [
-    new Refurbish(),
-    // ... other plugins
-  ],
+	// ...
+	plugins: [
+		new Refurbish(),
+		// ... other plugins
+	],
 };
 ```
 
@@ -78,14 +78,14 @@ As Rspack is designed to be a drop-in replacement for Webpack, you can use `refu
 
 ```js
 // rspack.config.js
-import Refurbish from 'refurbish/webpack';
+import { Refurbish } from 'refurbish/webpack';
 
 export default {
-  // ...
-  plugins: [
-    new Refurbish(),
-    // ... other plugins
-  ],
+	// ...
+	plugins: [
+		new Refurbish(),
+		// ... other plugins
+	],
 };
 ```
 
@@ -97,18 +97,18 @@ The plugin accepts an options object. The options are the same for Vite, Rollup,
 
 ```js
 refurbish({
-  // File patterns to include (default: ['**/*.jsx', '**/*.tsx', '**/*.mdx'])
-  include: ['**/*.jsx', '**/*.tsx'],
+	// File patterns to include (default: ['**/*.jsx', '**/*.tsx', '**/*.mdx'])
+	include: ['**/*.jsx', '**/*.tsx'],
 
-  // File patterns to exclude
-  exclude: ['**/node_modules/**'],
+	// File patterns to exclude
+	exclude: ['**/node_modules/**'],
 
-  // Import source for HMR setup function (default: 'refui/hmr')
-  importSource: 'refui/hmr',
+	// Import source for HMR setup function (default: 'refui/hmr')
+	importSource: 'refui/hmr',
 
-  // Explicitly enable/disable the plugin.
-  // Default: enabled in development, disabled in production.
-  enabled: true
+	// Explicitly enable/disable the plugin.
+	// Default: enabled in development, disabled in production.
+	enabled: true
 })
 ```
 
@@ -116,18 +116,18 @@ refurbish({
 
 ```js
 new Refurbish({
-  // File patterns to include (default: ['**/*.jsx', '**/*.tsx', '**/*.mdx'])
-  include: ['**/*.jsx', '**/*.tsx'],
+	// File patterns to include (default: ['**/*.jsx', '**/*.tsx', '**/*.mdx'])
+	include: ['**/*.jsx', '**/*.tsx'],
 
-  // File patterns to exclude
-  exclude: ['**/node_modules/**'],
+	// File patterns to exclude
+	exclude: ['**/node_modules/**'],
 
-  // Import source for HMR setup function (default: 'refui/hmr')
-  importSource: 'refui/hmr',
+	// Import source for HMR setup function (default: 'refui/hmr')
+	importSource: 'refui/hmr',
 
-  // Explicitly enable/disable the plugin.
-  // Default: enabled in development, disabled in production.
-  enabled: true
+	// Explicitly enable/disable the plugin.
+	// Default: enabled in development, disabled in production.
+	enabled: true
 })
 ```
 

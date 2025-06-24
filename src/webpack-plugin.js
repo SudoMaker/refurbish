@@ -2,7 +2,7 @@ import { createFilter } from '@rollup/pluginutils';
 import { createRequire } from 'node:module';
 import path from 'node:path';
 
-export default class Refurbish {
+export class Refurbish {
 	/**
 	 * @param {object} [opts]
 	 * @param {string|string[]} [opts.include]     globs to inject into
