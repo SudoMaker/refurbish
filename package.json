@@ -1,6 +1,6 @@
 {
   "name": "refurbish",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "rEFui HMR plugin for Rollup/Vite",
   "type": "module",
   "main": "index.js",

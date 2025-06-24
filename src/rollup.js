@@ -15,13 +15,12 @@ export function refurbish(options = {}) {
 	const {
 		include = ['**/*.jsx', '**/*.tsx', '**/*.mdx'],
 		exclude,
-		importSource = 'refui/hmr',
-		enabled
+		importSource = 'refui/hmr'
 	} = options;
 
 	const filter = createFilter(include, exclude);
 
-	enabled = enabled ?? process.env.NODE_ENV !== 'production';
+	const enabled = options.enabled ?? process.env.NODE_ENV !== 'production';
 	if (!enabled) return;
 
 	// pre–serve only for Vite; for plain Rollup we check `command`
