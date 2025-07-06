@@ -1,6 +1,6 @@
 {
   "name": "refurbish",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "rEFui HMR plugin for Rollup/Vite/Webpack/Rspack",
   "type": "module",
   "main": "index.js",
@@ -28,7 +28,7 @@
   "author": "Yukino Song <yukino@sudomaker.com>",
   "license": "MIT",
   "peerDependencies": {
-    "refui": "^0.4.0"
+    "refui": "^0.5.0"
   },
   "dependencies": {
     "@rollup/pluginutils": "^5.2.0"

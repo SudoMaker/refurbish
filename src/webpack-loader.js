@@ -8,7 +8,7 @@ export default function refuiHmrLoader(source) {
 		this.getOptions?.() || {};
 
 	let code = source.replace(
-		/import\.meta\.\s*\/\*\s*@refui\s+webpack\s*\*\/\s*hot/g,
+		/\s*\/\*\s*@refui\s+webpack\s*\*\/\s*import\.meta\.hot/g,
 		'import.meta.webpackHot'
 	);
 
