@@ -50,7 +50,7 @@ export function refurbish(options = {}) {
 	const snippet =
 `${BEGIN}
 if (import.meta.hot) {
-	import("${importSource}").then(({setup}) => setup({
+	import("${importSource}").then(m => m.setup({
 		data: import.meta.hot.data,
 		current: import(/* @vite-ignore */import.meta.url),
 		accept() { import.meta.hot.accept() },

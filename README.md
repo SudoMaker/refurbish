@@ -28,6 +28,15 @@ npm install refui
 
 ## Usage
 
+### Bun
+
+```toml
+# bunfig.toml
+
+[serve.static]
+plugins = ["refurbish/bun", ...other plugins]
+```
+
 ### Vite
 
 ```js
